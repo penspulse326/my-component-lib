@@ -109,17 +109,10 @@ importers:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@24.10.9)(@vitest/browser-playwright@4.0.18)(lightningcss@1.31.1)(sass@1.97.3)
 
-  packages/theme:
-    devDependencies:
-      sass:
-        specifier: ^1.97.3
-        version: 1.97.3
+  packages/theme: {}
 
   packages/vue:
     dependencies:
-      '@my-component-lib/theme':
-        specifier: workspace:*
-        version: link:../theme
       vue:
         specifier: ^3.5.24
         version: 3.5.27(typescript@5.9.3)
