@@ -7,21 +7,21 @@ import pluginReactRefresh from 'eslint-plugin-react-refresh';
 import pluginStorybook from 'eslint-plugin-storybook';
 import pluginVue from 'eslint-plugin-vue';
 import pluginVueA11y from 'eslint-plugin-vuejs-accessibility';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig([
   {
     ignores: ['**/dist', '**/.turbo', '**/.swc', '**/coverage', '**/storybook-static', '**/*.d.ts'],
   },
 
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  pluginPerfectionist.configs['recommended-natural'],
+
   // 1. Base JS/TS Setup for all packages
   {
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      pluginPerfectionist.configs['recommended-natural'],
-    ],
     files: ['**/*.{js,mjs,cjs,ts,tsx,vue}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -34,6 +34,7 @@ export default tseslint.config(
             'commitlint.config.js',
             'packages/*/.storybook/*.ts',
           ],
+          maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 20,
         },
         tsconfigRootDir: import.meta.dirname,
       },
@@ -46,7 +47,10 @@ export default tseslint.config(
 
   // 2. React Package Specifics
   {
-    extends: [pluginJsxA11y.flatConfigs.recommended],
+    ...pluginJsxA11y.flatConfigs.recommended,
+    files: ['packages/react/**/*.{ts,tsx}'],
+  },
+  {
     files: ['packages/react/**/*.{ts,tsx}'],
     plugins: {
       'react-hooks': pluginReactHooks,
@@ -88,5 +92,5 @@ export default tseslint.config(
   ...pluginStorybook.configs['flat/recommended'],
 
   // 5. Prettier (Must be last to override format-related rules)
-  prettier
-);
+  prettier,
+]);
