@@ -11,7 +11,9 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['**/dist', '**/.turbo', '**/.swc', '**/coverage', '**/storybook-static', '**/*.d.ts'] },
+  {
+    ignores: ['**/dist', '**/.turbo', '**/.swc', '**/coverage', '**/storybook-static', '**/*.d.ts'],
+  },
 
   // 1. Base JS/TS Setup for all packages
   {
@@ -26,7 +28,12 @@ export default tseslint.config(
       globals: globals.browser,
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['eslint.config.js', 'stylelint.config.js', 'packages/*/.storybook/*.ts'],
+          allowDefaultProject: [
+            'eslint.config.js',
+            'stylelint.config.js',
+            'commitlint.config.js',
+            'packages/*/.storybook/*.ts',
+          ],
         },
         tsconfigRootDir: import.meta.dirname,
       },
