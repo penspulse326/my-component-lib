@@ -1,4 +1,4 @@
-import "@my-component-lib/theme/src/components/_button.scss";
+import '@my-component-lib/theme/components/_button.scss';
 
 function Button() {
   return <button className="my-button">Button</button>;

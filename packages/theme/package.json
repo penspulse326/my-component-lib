@@ -2,8 +2,13 @@
   "name": "@my-component-lib/theme",
   "version": "0.0.1",
   "private": true,
-  "main": "./src/index.scss",
+  "main": "./index.scss",
   "files": [
-    "src"
-  ]
+    "index.scss",
+    "tokens",
+    "components"
+  ],
+  "exports": {
+    "./*": "./*"
+  }
 }

@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginPerfectionist from 'eslint-plugin-perfectionist';
+import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginReactRefresh from 'eslint-plugin-react-refresh';
 import pluginStorybook from 'eslint-plugin-storybook';
@@ -25,7 +26,10 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs,ts,tsx,vue}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
       parserOptions: {
         projectService: {
           allowDefaultProject: [
@@ -47,18 +51,23 @@ export default defineConfig([
 
   // 2. React Package Specifics
   {
+    files: ['packages/react/**/*.{ts,tsx}'],
     ...pluginJsxA11y.flatConfigs.recommended,
-    files: ['packages/react/**/*.{ts,tsx}'],
-  },
-  {
-    files: ['packages/react/**/*.{ts,tsx}'],
     plugins: {
+      ...pluginJsxA11y.flatConfigs.recommended.plugins,
+      react: pluginReact,
       'react-hooks': pluginReactHooks,
       'react-refresh': pluginReactRefresh,
     },
     rules: {
+      ...pluginJsxA11y.flatConfigs.recommended.rules,
+      ...pluginReact.configs.recommended.rules,
+      ...pluginReact.configs['jsx-runtime'].rules,
       ...pluginReactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    },
+    settings: {
+      react: { version: 'detect' },
     },
   },
 
@@ -66,10 +75,6 @@ export default defineConfig([
   ...pluginVue.configs['flat/recommended'].map((config) => ({
     ...config,
     files: ['packages/vue/**/*.{vue,ts,tsx}'],
-    rules: {
-      ...config.rules,
-      'vue/multi-word-component-names': 'off',
-    },
   })),
   {
     files: ['packages/vue/**/*.{vue,ts,tsx}'],
@@ -84,6 +89,7 @@ export default defineConfig([
       'vuejs-accessibility': pluginVueA11y,
     },
     rules: {
+      'vue/multi-word-component-names': 'off',
       ...pluginVueA11y.configs['recommended'].rules,
     },
   },
