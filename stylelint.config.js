@@ -1,10 +1,6 @@
 /** @type {import("stylelint").Config} */
 export default {
-  extends: [
-    'stylelint-config-standard-scss',
-    'stylelint-config-recommended-vue/scss',
-    'stylelint-config-recess-order',
-  ],
+  extends: ['stylelint-config-standard-scss', 'stylelint-config-recess-order'],
   ignoreFiles: ['**/dist/**', '**/node_modules/**', '**/coverage/**', '**/storybook-static/**'],
   rules: {
     // Custom rules or overrides
