@@ -1,6 +1,8 @@
 import '@my-component-lib/theme/components/_button.scss';
 import type { ButtonHTMLAttributes } from 'react';
 
+import clsx from 'clsx';
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * 可以插入文字或元件
@@ -20,12 +22,14 @@ function Button({
   loading,
   ...props
 }: ButtonProps) {
+  const buttonClassName = clsx('my-button', className);
+
   return (
     <button
       {...props}
       aria-busy={loading}
       aria-disabled={disabled || loading}
-      className={`my-button ${className}`}
+      className={buttonClassName}
       data-disabled={disabled ? '' : undefined}
       data-loading={loading ? '' : undefined}
       data-state={loading ? 'loading' : disabled ? 'disabled' : 'idle'}
