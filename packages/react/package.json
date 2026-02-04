@@ -11,8 +11,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@my-component-lib/theme": "workspace:*",
     "@my-component-lib/core": "workspace:*",
+    "@my-component-lib/theme": "workspace:*",
+    "clsx": "^2.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
