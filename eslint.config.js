@@ -14,7 +14,14 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   {
-    ignores: ['**/dist', '**/.turbo', '**/.swc', '**/coverage', '**/storybook-static', '**/*.d.ts'],
+    ignores: [
+      '**/dist',
+      '**/.turbo',
+      '**/.swc',
+      '**/coverage',
+      '**/storybook-static',
+      '**/*.d.ts',
+    ],
   },
 
   js.configs.recommended,
@@ -44,7 +51,10 @@ export default defineConfig([
       },
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
@@ -64,7 +74,10 @@ export default defineConfig([
       ...pluginReact.configs.recommended.rules,
       ...pluginReact.configs['jsx-runtime'].rules,
       ...pluginReactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
     },
     settings: {
       react: { version: 'detect' },
@@ -89,6 +102,13 @@ export default defineConfig([
       'vuejs-accessibility': pluginVueA11y,
     },
     rules: {
+      'vue/first-attribute-linebreak': [
+        'error',
+        {
+          multiline: 'below',
+          singleline: 'ignore',
+        },
+      ],
       'vue/multi-word-component-names': 'off',
       ...pluginVueA11y.configs['recommended'].rules,
     },

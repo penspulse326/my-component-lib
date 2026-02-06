@@ -14,17 +14,34 @@
     &:disabled,
     &[data-disabled],
     &[data-loading] {
-      pointer-events: none;
       cursor: not-allowed;
       opacity: 0.7;
     }
 
-    &:hover:not(:disabled, [data-loading]) {
-      background-color: var(--color-primary-hover);
+    &:not(:disabled, [data-disabled], [data-loading]) {
+      &:focus-visible,
+      &[data-focus-visible] {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 1px;
+        box-shadow: 0 0 0 2px
+          color-mix(in srgb, var(--color-primary), transparent 80%);
+        transition: none;
+      }
+
+      &:hover,
+      &[data-hover] {
+        background-color: color-mix(in srgb, var(--color-primary), white 15%);
+      }
+
+      &:active,
+      &[data-active] {
+        background-color: color-mix(in srgb, var(--color-primary), black 15%);
+      }
     }
 
     &[data-loading] {
-      // color: transparent;
+      // TODO: add loading animation
+      cursor: progress;
     }
   }
 }
