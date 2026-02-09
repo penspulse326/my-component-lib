@@ -1,13 +1,17 @@
 import '@my-component-lib/theme/components/_button.scss';
-import type { ButtonHTMLAttributes } from 'react';
+import type { AllHTMLAttributes, ElementType } from 'react';
 
 import clsx from 'clsx';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<
+  AllHTMLAttributes<HTMLElement>,
+  'as'
+> {
   /**
-   * 可以插入文字或元件
+   * 渲染的元件類型
+   * @default 'button'
    */
-  children: React.ReactNode;
+  as?: ElementType;
 
   /**
    * 是否為載入中
@@ -16,28 +20,30 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function Button({
+  as: Component = 'button',
   children,
   className,
   disabled,
   loading,
   ...props
 }: ButtonProps) {
+  const isButton = Component === 'button';
+  const isBlocked = loading || disabled;
   const buttonClassName = clsx('my-button', className);
 
   return (
-    <button
+    <Component
       {...props}
-      aria-busy={loading}
-      aria-disabled={disabled || loading}
+      aria-busy={loading || undefined}
+      aria-disabled={isBlocked || undefined}
       className={buttonClassName}
       data-disabled={disabled ? '' : undefined}
       data-loading={loading ? '' : undefined}
-      data-state={loading ? 'loading' : disabled ? 'disabled' : 'idle'}
-      disabled={disabled || loading}
-      type="button"
+      disabled={isButton ? isBlocked : undefined}
+      type={isButton ? 'button' : undefined}
     >
       {children}
-    </button>
+    </Component>
   );
 }
 

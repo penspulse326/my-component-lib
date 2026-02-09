@@ -30,3 +30,49 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const Hover: Story = {
+  render: (args) => (
+    <Button
+      {...args}
+      data-hover
+    >
+      Hover State (Forced)
+    </Button>
+  ),
+};
+
+export const Active: Story = {
+  render: (args) => (
+    <Button
+      {...args}
+      data-active
+    >
+      Active State (Forced)
+    </Button>
+  ),
+};
+
+export const Focus: Story = {
+  render: (args) => (
+    <Button
+      {...args}
+      data-focus
+    >
+      Focus State (Forced)
+    </Button>
+  ),
+};
+
+export const AsLink: Story = {
+  render: (args) => (
+    <Button
+      {...args}
+      as="a"
+      href="https://google.com"
+      target="_blank"
+    >
+      {`Rendered as Link (<a>)`}
+    </Button>
+  ),
+};

@@ -12,8 +12,8 @@ const meta: Meta<typeof Button> = {
     template: `
       <Button v-bind="args">
         <template v-if="args.default">
-          <span v-if="typeof args.default === 'string'" v-html="args.default"></span>
-          <component :is="args.default" v-else />
+          <template v-if="typeof args.default === 'string'">{{ args.default }}</template>
+          <component v-else :is="args.default" />
         </template>
       </Button>
     `,
@@ -74,5 +74,19 @@ export const Focus: Story = {
       return { args };
     },
     template: '<Button v-bind="args" data-focus>Focus State (Forced)</Button>',
+  }),
+};
+
+export const AsLink: Story = {
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args };
+    },
+    template: `
+      <Button v-bind="args" as="a" href="https://google.com" target="_blank">
+        Rendered as Link (&lt;a&gt;)
+      </Button>
+    `,
   }),
 };
