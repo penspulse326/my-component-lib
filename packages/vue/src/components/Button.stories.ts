@@ -31,3 +31,48 @@ export const Default: Story = {
     default: 'Default Button',
   },
 };
+
+export const Loading: Story = {
+  args: {
+    default: 'Loading Button',
+    loading: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    default: 'Disabled State',
+    disabled: true,
+  },
+};
+
+export const Hover: Story = {
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args };
+    },
+    template: '<Button v-bind="args" data-hover>Hover State (Forced)</Button>',
+  }),
+};
+
+export const Active: Story = {
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args };
+    },
+    template:
+      '<Button v-bind="args" data-active>Active State (Forced)</Button>',
+  }),
+};
+
+export const Focus: Story = {
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args };
+    },
+    template: '<Button v-bind="args" data-focus>Focus State (Forced)</Button>',
+  }),
+};

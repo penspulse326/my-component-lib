@@ -1,8 +1,16 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
+
 import '@my-component-lib/theme/components/_button.scss';
-import { ref, VNode } from 'vue';
+import { computed, VNode } from 'vue';
 
 const props = defineProps<{
+  /**
+   * 渲染的 HTML 標籤或元件
+   * @default 'button'
+   */
+  as?: Component | string;
+
   /**
    * 是否為禁用
    */
@@ -21,31 +29,21 @@ defineSlots<{
   default: () => VNode;
 }>();
 
-const isHovered = ref(false);
-const isActive = ref(false);
-const isFocused = ref(false);
+const isButton = computed(() => !props.as || props.as === 'button');
+const isBlocked = computed(() => props.loading || props.disabled);
 </script>
 
 <template>
-  <button
-    type="button"
+  <component
+    :is="as || 'button'"
+    :type="isButton ? 'button' : undefined"
+    :disabled="isBlocked"
     class="my-button"
-    :disabled="loading || disabled"
     :aria-busy="loading || undefined"
-    :aria-disabled="loading || disabled || undefined"
-    :data-disabled="loading || disabled ? '' : undefined"
+    :aria-disabled="isBlocked || undefined"
+    :data-disabled="disabled ? '' : undefined"
     :data-loading="loading ? '' : undefined"
-    :data-state="loading ? 'loading' : disabled ? 'disabled' : 'idle'"
-    :data-hover="isHovered || undefined"
-    :data-active="isActive || undefined"
-    :data-focus="isFocused || undefined"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
-    @mousedown="isActive = true"
-    @mouseup="isActive = false"
-    @focus="isFocused = true"
-    @blur="isFocused = false"
   >
     <slot />
-  </button>
+  </component>
 </template>

@@ -20,7 +20,8 @@
 
     &:not(:disabled, [data-disabled], [data-loading]) {
       &:focus-visible,
-      &[data-focus-visible] {
+      &[data-focus-visible],
+      &[data-focus] {
         outline: 2px solid var(--color-primary);
         outline-offset: 1px;
         box-shadow: 0 0 0 2px
@@ -40,7 +41,6 @@
     }
 
     &[data-loading] {
-      // TODO: add loading animation
       cursor: progress;
     }
   }
