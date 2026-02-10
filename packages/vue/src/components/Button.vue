@@ -31,11 +31,19 @@ defineSlots<{
 
 const isButton = computed(() => !props.as || props.as === 'button');
 const isBlocked = computed(() => props.loading || props.disabled);
+
+const accessibilityProps = computed(() => {
+  return {
+    role: isButton.value ? undefined : 'button',
+    tabIndex: isButton.value ? undefined : isBlocked.value ? -1 : 0,
+  };
+});
 </script>
 
 <template>
   <component
     :is="as || 'button'"
+    v-bind="accessibilityProps"
     :type="isButton ? 'button' : undefined"
     :disabled="isBlocked"
     class="my-button"
